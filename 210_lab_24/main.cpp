@@ -95,9 +95,9 @@ void add_goat(set<Goat> &trip, string c[], string n[])
     
     
     random_device randNum;
-    uniform_int_distribution<int>rangeC(0, 24);
-    uniform_int_distribution<int>rangeN(0, 199);
-    uniform_int_distribution<int>rangeA(1, 20);
+    uniform_int_distribution<int>rangeC(0, SZ_COLORS - 1);
+    uniform_int_distribution<int>rangeN(0, SZ_NAMES - 1);
+    uniform_int_distribution<int>rangeA(1, MAX_AGE);
     
     num = rangeN(randNum);
     name = n[num];

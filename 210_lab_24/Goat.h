@@ -1,5 +1,4 @@
 // Goat.h
-
 #ifndef GOAT_H
 #define GOAT_H
 #include <iostream>
