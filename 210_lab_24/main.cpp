@@ -4,22 +4,21 @@
 #include <fstream>
 #include <iomanip>
 #include <random>
-#include <list>
+#include <set>
 #include "Goat.h"
 using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20;
 
-int select_goat(list<Goat>);
-void delete_goat(list<Goat> &);
-void add_goat(list<Goat> &, string [], string []);
-void display_trip(list<Goat>);
+int select_goat(set<Goat>);
+void delete_goat(set<Goat> &);
+void add_goat(set<Goat> &, string [], string []);
+void display_trip(set<Goat>);
 int main_menu();
 
 int main() {
     bool again = 1;
     
-    // read & populate arrays for names and colors
     ifstream fin("name.txt");
     string names[SZ_NAMES];
     int i = 0;
@@ -32,10 +31,11 @@ int main() {
     while (fin1 >> colors[i++]);
     fin1.close();
     
-    list<Goat> trip;
+    set<Goat> trip;
     
     int c = 0;
-    while (again) {
+    while (again)
+    {
         c = main_menu();
         
         if (again)
@@ -70,7 +70,8 @@ int main() {
     return 0;
 }
 
-int main_menu() {
+int main_menu()
+{
     int choice = 0;
         cout << "----------------------------" << endl;
         cout << "*** GOAT MANAGER 3001 ***" << endl;
@@ -85,11 +86,13 @@ int main_menu() {
     return choice;
 }
 
-void add_goat(list<Goat> &trip, string c[], string n[]) {
+void add_goat(set<Goat> &trip, string c[], string n[])
+{
     string color;
     string name;
     int age;
     int num;
+    
     
     random_device randNum;
     uniform_int_distribution<int>rangeC(0, 24);
@@ -104,10 +107,12 @@ void add_goat(list<Goat> &trip, string c[], string n[]) {
     age = num;
     
     Goat g(name, age, color);
-    trip.push_back(g);
+    
+    trip.insert(g);
 }
 
-int select_goat(list<Goat> trip) {
+int select_goat(set<Goat> trip)
+{
     int wi = 0;
     
     display_trip(trip);
@@ -118,7 +123,8 @@ int select_goat(list<Goat> trip) {
     return wi;
 }
 
-void delete_goat(list<Goat> &trip) {
+void delete_goat(set<Goat> &trip)
+{
     int index;
     
     cout << "Which Goat do you wish to delete?" << endl;
@@ -132,7 +138,7 @@ void delete_goat(list<Goat> &trip) {
         index = select_goat(trip);
     }
     
-    list<Goat>::iterator it;
+    set<Goat>::iterator it;
     
     it = trip.begin();
     
@@ -148,7 +154,8 @@ void delete_goat(list<Goat> &trip) {
         display_trip(trip);
 }
 
-void display_trip(list<Goat> trip) {
+void display_trip(set<Goat> trip)
+{
     int count = 1;
     for (Goat g : trip) {
         cout << "[" << count << "] " << g.get_name() << " (" << g.get_age() << ", " << g.get_color() << ") " << endl;
